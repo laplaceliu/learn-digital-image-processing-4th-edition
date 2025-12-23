@@ -2,7 +2,6 @@
 #include <algorithms/nearest_neighbor_zoom.hpp>
 #include <algorithms/quantize.hpp>
 #include <core/core.hpp>
-#include <iostream>
 #include <spdlog/spdlog.h>
 
 using namespace dip;
@@ -12,7 +11,7 @@ int main(int argc, char *argv[]) {
   spdlog::info("Algorithm library demo");
 
   if (argc < 2) {
-    std::cout << "Usage: " << argv[0] << " <image_file>" << std::endl;
+    spdlog::error("Usage: {} <image_file>", argv[0]);
     return 1;
   }
 

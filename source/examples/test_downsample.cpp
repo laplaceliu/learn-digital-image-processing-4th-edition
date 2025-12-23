@@ -1,6 +1,5 @@
 #include <algorithms/downsample.hpp>
 #include <core/core.hpp>
-#include <iostream>
 #include <spdlog/spdlog.h>
 
 using namespace dip;

@@ -7,6 +7,8 @@
 #include <iostream>
 #include <string>
 
+namespace dip {
+
 // 图像数据类型枚举
 enum class DataType {
   UINT8,   // 8-bit unsigned char
@@ -214,5 +216,7 @@ struct Rect {
               << ", " << rect.height << ")";
   }
 };
+
+} // namespace dip
 
 #endif // CORE_BASIC_TYPES_HPP

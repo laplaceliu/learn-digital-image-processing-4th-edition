@@ -5,6 +5,9 @@ project(learn-digital-image-processing-4th-edition)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# 生成compile_commands.json以支持IntelliSense
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # 设置包含目录
 include_directories(include external external/spdlog/include)
 
@@ -14,19 +17,20 @@ set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} ${CMAKE_SOURCE_DIR}/include ${CMAKE
 # 添加spdlog子目录
 add_subdirectory(external/spdlog)
 
-# 收集公共源文件
-file(GLOB COMMON_SOURCES "source/*.cpp")
+# 收集公共源文件和算法源文件（算法库）
+file(GLOB COMMON_SOURCES "source/common/*.cpp" "source/algorithms/*.cpp")
 
-# 为每个章节目录创建可执行文件
-file(GLOB CHAPTER_DIRS "source/chapter*")
-foreach(CHAPTER_DIR ${CHAPTER_DIRS})
-    file(GLOB CHAPTER_SOURCES "${CHAPTER_DIR}/*.cpp")
-    foreach(SOURCE_FILE ${CHAPTER_SOURCES})
-        # 获取文件名（不含路径和扩展名）
-        get_filename_component(EXEC_NAME ${SOURCE_FILE} NAME_WE)
-        # 创建可执行文件
-        add_executable(${EXEC_NAME} ${SOURCE_FILE} ${COMMON_SOURCES})
-        # 链接spdlog库
-        target_link_libraries(${EXEC_NAME} spdlog::spdlog)
-    endforeach()
+# 创建算法库
+add_library(image_algorithms STATIC ${COMMON_SOURCES})
+target_link_libraries(image_algorithms spdlog::spdlog)
+
+# 示例和测试可执行文件
+file(GLOB_RECURSE EXAMPLE_SOURCES "source/examples/*.cpp")
+foreach(SOURCE_FILE ${EXAMPLE_SOURCES})
+    # 获取文件名（不含路径和扩展名）
+    get_filename_component(EXEC_NAME ${SOURCE_FILE} NAME_WE)
+    # 创建可执行文件
+    add_executable(${EXEC_NAME} ${SOURCE_FILE})
+    # 链接算法库和spdlog
+    target_link_libraries(${EXEC_NAME} image_algorithms spdlog::spdlog)
 endforeach()

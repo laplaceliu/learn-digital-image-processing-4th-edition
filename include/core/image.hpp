@@ -6,6 +6,8 @@
 #include <memory>
 #include <stdexcept>
 
+namespace dip {
+
 // 专门的图像类（基于Matrix）
 class Image {
 private:
@@ -398,5 +400,7 @@ inline Image rotate90(const Image &src, bool clockwise = true) {
 }
 
 } // namespace image_ops
+
+} // namespace dip
 
 #endif // CORE_IMAGE_HPP

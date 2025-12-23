@@ -40,5 +40,6 @@
 # debug information files
 *.dwo
 
+.vscode/.cpp_intellisense
 .cache
 build

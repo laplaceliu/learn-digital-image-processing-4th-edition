@@ -6,6 +6,8 @@
 #include <cmath>
 #include <initializer_list>
 
+namespace dip {
+
 // 固定大小向量（像素值）
 template <typename T, int N> class Vec {
 public:
@@ -374,5 +376,7 @@ using Vec4f = Vec<float, 4>;
 using Vec2d = Vec<double, 2>;
 using Vec3d = Vec<double, 3>;
 using Vec4d = Vec<double, 4>;
+
+} // namespace dip
 
 #endif // CORE_VECTOR_TYPES_HPP

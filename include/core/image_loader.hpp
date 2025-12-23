@@ -7,8 +7,9 @@
 #include <string>
 #include <vector>
 
-#define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
+
+namespace dip {
 
 class ImageLoader {
 public:
@@ -240,5 +241,7 @@ inline bool save_binary(const Image &image, const std::string &filename) {
 }
 
 } // namespace image_saver
+
+} // namespace dip
 
 #endif // CORE_IMAGE_LOADER_HPP

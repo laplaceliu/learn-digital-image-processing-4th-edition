@@ -1,0 +1,55 @@
+{
+    // C/C++ 配置
+    "C_Cpp.intelliSenseEngine": "default",
+    "C_Cpp.autocomplete": "default",
+    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.intelliSenseEngineFallback": "enabled",
+    "C_Cpp.enhancedColorization": "enabled",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.intelliSenseMode": "gcc-x64",
+    "C_Cpp.default.compilerPath": "/usr/bin/g++",
+    "C_Cpp.default.includePath": [
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/include/**",
+        "${workspaceFolder}/external/**",
+        "${workspaceFolder}/external/spdlog/include/**"
+    ],
+    "C_Cpp.default.defines": [
+        "__GNUC__=9",
+        "__cplusplus=201703L"
+    ],
+    
+    // 编译命令路径
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json",
+    
+    // clangd 配置（如果使用 clangd）
+    "clangd.arguments": [
+        "--background-index",
+        "--compile-commands-dir=${workspaceFolder}/build",
+        "--header-insertion=iwyu",
+        "--completion-style=detailed",
+        "--function-arg-placeholders",
+        "--fallback-style=Google"
+    ],
+    
+    // 文件排除
+    "files.exclude": {
+        "**/build": true,
+        "**/.git": true,
+        "**/*.o": true,
+        "**/*.a": true
+    },
+    
+    // CMake 工具配置
+    "cmake.configureOnOpen": true,
+    "cmake.buildDirectory": "${workspaceFolder}/build",
+    "cmake.generator": "Unix Makefiles",
+    
+    // IntelliSense 增强
+    "C_Cpp.intelliSenseCacheSize": 1024,
+    "C_Cpp.intelliSenseCachePath": "${workspaceFolder}/.vscode/.cpp_intellisense",
+    
+    // 调试配置
+    "debug.allowBreakpointsEverywhere": true,
+    "debug.console": "integratedTerminal"
+}

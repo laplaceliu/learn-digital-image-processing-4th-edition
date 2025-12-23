@@ -9,6 +9,8 @@
 #include <stdexcept>
 #include <vector>
 
+namespace dip {
+
 // 核心矩阵类（类似cv::Mat）
 class Matrix {
 private:
@@ -434,5 +436,7 @@ inline Matrix subtract(const Matrix &a, const Matrix &b) {
 }
 
 } // namespace matrix_ops
+
+} // namespace dip
 
 #endif // CORE_MATRIX_HPP

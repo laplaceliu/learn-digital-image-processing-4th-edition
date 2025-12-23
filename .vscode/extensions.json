@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "ms-vscode.cpptools",
+        "twxs.cmake",
+        "ms-vscode.cmake-tools",
+        "vadimcn.vscode-lldb",
+        "ms-vscode.hexeditor",
+        "llvm-vs-code-extensions.vscode-clangd"
+    ]
+}

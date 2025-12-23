@@ -26,7 +26,7 @@ int main() {
   spdlog::info("Generated {} data points", x_data.size());
 
   // 测试线性拟合
-  spdlog::info("\n--- Linear Fit Test ---");
+  spdlog::info("--- Linear Fit Test ---");
   auto linear_result = algorithms::linear_fit(x_data, y_data);
 
   if (linear_result.success) {
@@ -47,7 +47,7 @@ int main() {
   }
 
   // 测试二次多项式拟合
-  spdlog::info("\n--- Quadratic Polynomial Fit Test ---");
+  spdlog::info("--- Quadratic Polynomial Fit Test ---");
   auto poly_coeffs = algorithms::polynomial_fit(x_data, y_data, 2);
 
   if (!poly_coeffs.empty()) {
@@ -71,7 +71,7 @@ int main() {
   }
 
   // 测试三次多项式拟合
-  spdlog::info("\n--- Cubic Polynomial Fit Test ---");
+  spdlog::info("--- Cubic Polynomial Fit Test ---");
   auto cubic_coeffs = algorithms::polynomial_fit(x_data, y_data, 3);
 
   if (!cubic_coeffs.empty()) {
@@ -91,7 +91,7 @@ int main() {
   }
 
   // 边界情况测试
-  spdlog::info("\n--- Edge Cases Test ---");
+  spdlog::info("--- Edge Cases Test ---");
 
   // 测试数据点不足的情况
   std::vector<double> few_x = {1.0}, few_y = {2.0};
@@ -110,6 +110,6 @@ int main() {
   spdlog::info("Linear fit with vertical line: success = {}",
                vertical_result.success);
 
-  spdlog::info("\nLeast squares test completed!");
+  spdlog::info("Least squares test completed!");
   return 0;
 }

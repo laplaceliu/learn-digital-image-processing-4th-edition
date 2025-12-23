@@ -43,7 +43,7 @@ public:
   // 类型转换构造
   template <typename T2> Vec(const Vec<T2, N> &other) {
     for (int i = 0; i < N; ++i)
-      data_[i] = static_cast<T>(other[i]);
+      data_[i] = static_cast<T>(other.data_[i]);
   }
 
   // 赋值操作符
@@ -57,7 +57,7 @@ public:
 
   template <typename T2> Vec &operator=(const Vec<T2, N> &other) {
     for (int i = 0; i < N; ++i)
-      data_[i] = static_cast<T>(other[i]);
+      data_[i] = static_cast<T>(other.data_[i]);
     return *this;
   }
 

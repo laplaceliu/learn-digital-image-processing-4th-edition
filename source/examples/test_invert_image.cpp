@@ -1,6 +1,5 @@
 #include <algorithms/spatial_ops.hpp>
 #include <core/core.hpp>
-#include <iostream>
 #include <spdlog/spdlog.h>
 
 int main(int argc, char *argv[]) {
@@ -35,9 +34,8 @@ int main(int argc, char *argv[]) {
           pixel_str += ",";
       }
       pixel_str += ") ";
-      std::cout << "Pixel(" << y << "," << x << "): " << pixel_str << "\t";
+      spdlog::info("Pixel({},{}): {}", y, x, pixel_str);
     }
-    std::cout << std::endl;
   }
 
   // 测试图像求反算法
@@ -61,9 +59,8 @@ int main(int argc, char *argv[]) {
           pixel_str += ",";
       }
       pixel_str += ") ";
-      std::cout << "Pixel(" << y << "," << x << "): " << pixel_str << "\t";
+      spdlog::info("Pixel({},{}): {}", y, x, pixel_str);
     }
-    std::cout << std::endl;
   }
 
   // 验证求反结果的正确性

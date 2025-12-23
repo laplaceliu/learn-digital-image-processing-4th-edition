@@ -34,3 +34,10 @@ foreach(SOURCE_FILE ${EXAMPLE_SOURCES})
     # 链接算法库和spdlog
     target_link_libraries(${EXEC_NAME} image_algorithms spdlog::spdlog)
 endforeach()
+
+# 复制测试图片到构建目录
+add_custom_command(TARGET image_algorithms POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    ${CMAKE_SOURCE_DIR}/misc/test.png
+    ${CMAKE_BINARY_DIR}/test.png
+    COMMENT "Copying test.png to build directory")

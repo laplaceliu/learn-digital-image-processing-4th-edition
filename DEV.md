@@ -150,13 +150,28 @@ static constexpr int MAX_CHANNELS = 4;
 
 ## 代码风格
 
-### 1. 缩进和格式
+### 1. 头文件包含规范
+
+- **项目内部头文件**：使用尖括号 `<>`，如 `#include <core/image.hpp>`
+- **系统头文件**：使用尖括号 `<>`，如 `#include <vector>`
+- **第三方库头文件**：使用尖括号 `<>`，如 `#include <spdlog/spdlog.h>`
+- **禁止使用双引号**：双引号 `""` 仅用于特殊情况（如相对路径包含）
+
+**示例**：
+```cpp
+#include <algorithms/your_algorithm.hpp>    // 项目内部算法头文件
+#include <core/core.hpp>                    // 项目核心头文件
+#include <vector>                           // 标准库
+#include <spdlog/spdlog.h>                  // 第三方库
+```
+
+### 2. 缩进和格式
 
 - 使用 2 空格缩进，不使用 tab
 - 大括号使用 Allman 风格（另起一行）
 - 函数和类之间留一个空行
 
-### 2. 注释规范
+### 3. 注释规范
 
 - 使用 `//` 进行单行注释，`/* */` 进行多行注释
 - 公共接口应有详细的文档注释

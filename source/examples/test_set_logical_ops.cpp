@@ -1,5 +1,5 @@
-#include "algorithms/set_logical_ops.hpp"
-#include "core/core.hpp"
+#include <algorithms/set_logical_ops.hpp>
+#include <core/core.hpp>
 #include <iostream>
 #include <spdlog/spdlog.h>
 

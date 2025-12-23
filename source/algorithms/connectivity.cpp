@@ -1,5 +1,5 @@
-#include "algorithms/connectivity.hpp"
-#include "core/core.hpp"
+#include <algorithms/connectivity.hpp>
+#include <core/core.hpp>
 #include <spdlog/spdlog.h>
 
 namespace dip {

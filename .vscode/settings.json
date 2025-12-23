@@ -37,7 +37,8 @@
         "**/build": true,
         "**/.git": true,
         "**/*.o": true,
-        "**/*.a": true
+        "**/*.a": true,
+        "**/.vscode/.cpp_intellisense": true
     },
     
     // CMake 工具配置

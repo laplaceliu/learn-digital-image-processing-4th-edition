@@ -11,12 +11,12 @@ namespace dip {
 // 固定大小向量（像素值）
 template <typename T, int N> class Vec {
 public:
-  T data[N];
+  T data_[N];
 
   // 默认构造
   Vec() {
     for (int i = 0; i < N; ++i)
-      data[i] = T(0);
+      data_[i] = T(0);
   }
 
   // 列表初始化
@@ -24,76 +24,76 @@ public:
     int i = 0;
     for (const auto &val : list) {
       if (i < N)
-        data[i++] = val;
+        data_[i++] = val;
     }
     // 未指定的元素保持为0
   }
 
   // 可变参数构造
-  template <typename... Args> Vec(Args... args) : data{T(args)...} {
+  template <typename... Args> Vec(Args... args) : data_{T(args)...} {
     static_assert(sizeof...(args) <= N, "Too many arguments");
   }
 
   // 拷贝构造
   Vec(const Vec &other) {
     for (int i = 0; i < N; ++i)
-      data[i] = other.data[i];
+      data_[i] = other.data_[i];
   }
 
   // 类型转换构造
   template <typename T2> Vec(const Vec<T2, N> &other) {
     for (int i = 0; i < N; ++i)
-      data[i] = static_cast<T>(other[i]);
+      data_[i] = static_cast<T>(other[i]);
   }
 
   // 赋值操作符
   Vec &operator=(const Vec &other) {
     if (this != &other) {
       for (int i = 0; i < N; ++i)
-        data[i] = other.data[i];
+        data_[i] = other.data_[i];
     }
     return *this;
   }
 
   template <typename T2> Vec &operator=(const Vec<T2, N> &other) {
     for (int i = 0; i < N; ++i)
-      data[i] = static_cast<T>(other[i]);
+      data_[i] = static_cast<T>(other[i]);
     return *this;
   }
 
   // 索引访问
-  T &operator[](int i) { return data[i]; }
-  const T &operator[](int i) const { return data[i]; }
+  T &operator[](int i) { return data_[i]; }
+  const T &operator[](int i) const { return data_[i]; }
 
-  T &operator()(int i) { return data[i]; }
-  const T &operator()(int i) const { return data[i]; }
+  T &operator()(int i) { return data_[i]; }
+  const T &operator()(int i) const { return data_[i]; }
 
   // 向量运算
   Vec operator+(const Vec &other) const {
     Vec result;
     for (int i = 0; i < N; ++i)
-      result[i] = data[i] + other[i];
+      result[i] = data_[i] + other[i];
     return result;
   }
 
   Vec operator-(const Vec &other) const {
     Vec result;
     for (int i = 0; i < N; ++i)
-      result[i] = data[i] - other[i];
+      result[i] = data_[i] - other[i];
     return result;
   }
 
   Vec operator*(T scale) const {
     Vec result;
     for (int i = 0; i < N; ++i)
-      result[i] = data[i] * scale;
+      result[i] = data_[i] * scale;
     return result;
   }
 
   Vec operator/(T scale) const {
     Vec result;
     for (int i = 0; i < N; ++i)
-      result[i] = data[i] / scale;
+      result[i] = data_[i] / scale;
     return result;
   }
 
@@ -101,7 +101,7 @@ public:
   Vec mul(const Vec &other) const {
     Vec result;
     for (int i = 0; i < N; ++i)
-      result[i] = data[i] * other[i];
+      result[i] = data_[i] * other[i];
     return result;
   }
 
@@ -109,39 +109,39 @@ public:
   Vec div(const Vec &other) const {
     Vec result;
     for (int i = 0; i < N; ++i)
-      result[i] = data[i] / other[i];
+      result[i] = data_[i] / other[i];
     return result;
   }
 
   // 复合运算
   Vec &operator+=(const Vec &other) {
     for (int i = 0; i < N; ++i)
-      data[i] += other[i];
+      data_[i] += other[i];
     return *this;
   }
 
   Vec &operator-=(const Vec &other) {
     for (int i = 0; i < N; ++i)
-      data[i] -= other[i];
+      data_[i] -= other[i];
     return *this;
   }
 
   Vec &operator*=(T scale) {
     for (int i = 0; i < N; ++i)
-      data[i] *= scale;
+      data_[i] *= scale;
     return *this;
   }
 
   Vec &operator/=(T scale) {
     for (int i = 0; i < N; ++i)
-      data[i] /= scale;
+      data_[i] /= scale;
     return *this;
   }
 
   // 比较运算
   bool operator==(const Vec &other) const {
     for (int i = 0; i < N; ++i)
-      if (data[i] != other[i])
+      if (data_[i] != other[i])
         return false;
     return true;
   }
@@ -152,7 +152,7 @@ public:
   T dot(const Vec &other) const {
     T result = T(0);
     for (int i = 0; i < N; ++i)
-      result += data[i] * other[i];
+      result += data_[i] * other[i];
     return result;
   }
 
@@ -175,37 +175,37 @@ public:
     if constexpr (P == 1) {
       T result = T(0);
       for (int i = 0; i < N; ++i)
-        result += std::abs(data[i]);
+        result += std::abs(data_[i]);
       return result;
     } else if constexpr (P == 2) {
       return length();
     } else if constexpr (P == 0) { // L-infinity
       T result = T(0);
       for (int i = 0; i < N; ++i)
-        result = std::max(result, std::abs(data[i]));
+        result = std::max(result, std::abs(data_[i]));
       return result;
     }
   }
 
   // 最小/最大值
   T min() const {
-    T result = data[0];
+    T result = data_[0];
     for (int i = 1; i < N; ++i)
-      result = std::min(result, data[i]);
+      result = std::min(result, data_[i]);
     return result;
   }
 
   T max() const {
-    T result = data[0];
+    T result = data_[0];
     for (int i = 1; i < N; ++i)
-      result = std::max(result, data[i]);
+      result = std::max(result, data_[i]);
     return result;
   }
 
   int argmin() const {
     int idx = 0;
     for (int i = 1; i < N; ++i) {
-      if (data[i] < data[idx])
+      if (data_[i] < data_[idx])
         idx = i;
     }
     return idx;
@@ -214,7 +214,7 @@ public:
   int argmax() const {
     int idx = 0;
     for (int i = 1; i < N; ++i) {
-      if (data[i] > data[idx])
+      if (data_[i] > data_[idx])
         idx = i;
     }
     return idx;
@@ -224,7 +224,7 @@ public:
   template <int M> Vec<T, M> subvec(int start = 0) const {
     Vec<T, M> result;
     for (int i = 0; i < M && (start + i) < N; ++i) {
-      result[i] = data[start + i];
+      result[i] = data_[start + i];
     }
     return result;
   }
@@ -271,51 +271,51 @@ public:
 // 标量（用于颜色等）
 class Scalar {
 public:
-  double val[4];
+  double val_[4];
 
-  Scalar() { val[0] = val[1] = val[2] = val[3] = 0; }
+  Scalar() { val_[0] = val_[1] = val_[2] = val_[3] = 0; }
   Scalar(double v0) {
-    val[0] = v0;
-    val[1] = val[2] = val[3] = 0;
+    val_[0] = v0;
+    val_[1] = val_[2] = val_[3] = 0;
   }
   Scalar(double v0, double v1) {
-    val[0] = v0;
-    val[1] = v1;
-    val[2] = val[3] = 0;
+    val_[0] = v0;
+    val_[1] = v1;
+    val_[2] = val_[3] = 0;
   }
   Scalar(double v0, double v1, double v2) {
-    val[0] = v0;
-    val[1] = v1;
-    val[2] = v2;
-    val[3] = 0;
+    val_[0] = v0;
+    val_[1] = v1;
+    val_[2] = v2;
+    val_[3] = 0;
   }
   Scalar(double v0, double v1, double v2, double v3) {
-    val[0] = v0;
-    val[1] = v1;
-    val[2] = v2;
-    val[3] = v3;
+    val_[0] = v0;
+    val_[1] = v1;
+    val_[2] = v2;
+    val_[3] = v3;
   }
 
   template <typename T, int N> Scalar(const Vec<T, N> &vec) {
     for (int i = 0; i < 4; ++i)
-      val[i] = (i < N) ? static_cast<double>(vec[i]) : 0;
+      val_[i] = (i < N) ? static_cast<double>(vec[i]) : 0;
   }
 
-  double &operator[](int i) { return val[i]; }
-  const double &operator[](int i) const { return val[i]; }
+  double &operator[](int i) { return val_[i]; }
+  const double &operator[](int i) const { return val_[i]; }
 
   // 转换为Vec
   template <int N> Vec<double, N> toVec() const {
     Vec<double, N> result;
     for (int i = 0; i < N && i < 4; ++i) {
-      result[i] = val[i];
+      result[i] = val_[i];
     }
     return result;
   }
 
   bool operator==(const Scalar &other) const {
     for (int i = 0; i < 4; ++i) {
-      if (std::abs(val[i] - other[i]) > 1e-10)
+      if (std::abs(val_[i] - other[i]) > 1e-10)
         return false;
     }
     return true;
@@ -326,21 +326,21 @@ public:
   Scalar operator+(const Scalar &other) const {
     Scalar result;
     for (int i = 0; i < 4; ++i)
-      result[i] = val[i] + other[i];
+      result[i] = val_[i] + other[i];
     return result;
   }
 
   Scalar operator-(const Scalar &other) const {
     Scalar result;
     for (int i = 0; i < 4; ++i)
-      result[i] = val[i] - other[i];
+      result[i] = val_[i] - other[i];
     return result;
   }
 
   Scalar operator*(double scale) const {
     Scalar result;
     for (int i = 0; i < 4; ++i)
-      result[i] = val[i] * scale;
+      result[i] = val_[i] * scale;
     return result;
   }
 

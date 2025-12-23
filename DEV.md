@@ -51,7 +51,94 @@ learn-digital-image-processing-4th-edition/
 - **变量名**: snake_case，如 `scale_factor`, `output_image`
 - **常量**: UPPER_SNAKE_CASE，如 `MAX_CHANNELS`, `DEFAULT_QUALITY`
 
-### 4. 枚举和常量
+### 4. 变量命名约定
+
+为了提高代码可读性和一致性，项目采用以下变量命名约定：
+
+- **类成员变量**: 末尾加下划线 (`member_var_`)
+
+```cpp
+class Image {
+private:
+  int width_;      // 类成员变量
+  Matrix mat_;     // 类成员变量
+  int channels_;   // 类成员变量
+};
+  ```
+
+- **函数参数**: 末尾不加下划线 (`parameter`)
+
+```cpp
+void process_image(const Image& image, int scale_factor) {
+  // image 和 scale_factor 是函数参数
+}
+```
+
+- **局部变量**: 末尾不加下划线 (`local_var`)
+
+```cpp
+void calculate() {
+  int result = 0;  // 局部变量
+  for (int i = 0; i < count; ++i) {  // 局部变量
+    result += data[i];
+  }
+}
+```
+
+- **全局变量/常量**: UPPER_SNAKE_CASE (`GLOBAL_CONSTANT`)
+
+```cpp
+static constexpr int MAX_PIXEL_VALUE = 255;
+const std::string DEFAULT_FORMAT = "png";
+```
+
+**结构体 vs 类的命名差异**：
+
+结构体通常有两种设计模式，采用不同的命名约定：
+
+**简单数据聚合（POD 结构体）**：
+
+```cpp
+// 结构体主要是数据容器，成员变量不加下划线
+struct Size {
+  int width, height;  // 不加下划线
+
+  Size(int w, int h) : width(w), height(h) {}
+};
+
+struct Point {
+  T x, y;           // 不加下划线
+
+  Point(T x, T y) : x(x), y(y) {}  // 参数名与成员不同，避免冲突
+};
+```
+
+**复杂行为结构体**：
+
+```cpp
+// 结构体有复杂方法，成员变量加下划线
+struct ComplexData {
+  int data_count_;     // 加下划线
+  double threshold_;
+
+  bool process() { /* 复杂逻辑 */ }
+};
+```
+
+**项目中的结构体约定**：
+
+- **`Size`, `Point<T>`, `Rect`**: 简单数据聚合，成员不加下划线
+- **构造函数参数**: 使用与成员不同的名称（如 `x_`, `y_`）避免名称冲突
+
+这种命名方式的优点：
+
+- **清晰区分**: 一眼就能看出变量的作用域
+- **避免冲突**: 成员变量和参数名不会冲突
+- **符合惯例**: 遵循 C++ 社区广泛采用的约定
+- **便于维护**: 降低代码理解难度
+- **语义明确**: 简单聚合 vs 复合类型有明显区别
+
+### 5. 枚举和常量
 
 ```cpp
 enum class DataType {
@@ -60,6 +147,20 @@ enum class DataType {
 
 static constexpr int MAX_CHANNELS = 4;
 ```
+
+## 代码风格
+
+### 1. 缩进和格式
+
+- 使用 2 空格缩进，不使用 tab
+- 大括号使用 Allman 风格（另起一行）
+- 函数和类之间留一个空行
+
+### 2. 注释规范
+
+- 使用 `//` 进行单行注释，`/* */` 进行多行注释
+- 公共接口应有详细的文档注释
+- 复杂算法应在关键步骤添加解释性注释
 
 ## 如何扩展
 

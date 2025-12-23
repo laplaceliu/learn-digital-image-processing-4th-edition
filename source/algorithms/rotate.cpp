@@ -6,6 +6,8 @@ namespace dip {
 namespace algorithms {
 
 Image rotate(const Image &img, double theta) {
+  // 注意：theta参数使用弧度而非角度
+  // 常用弧度值：0 = 0°, π/6 = 30°, π/4 = 45°, π/2 = 90°, π = 180°
   int height = img.height();
   int width = img.width();
   int channels = img.channels();

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <fstream>
+#include <spdlog/spdlog.h>
 
 // 最近邻插值放大：scale为放大倍数
 Image nearestNeighborZoom(const Image& img, float scale) {
@@ -33,11 +34,16 @@ Image nearestNeighborZoom(const Image& img, float scale) {
 }
 
 int main() {
+    // 初始化spdlog
+    spdlog::set_level(spdlog::level::info);
+    spdlog::info("Starting nearest neighbor zoom program");
+    
     std::cout << "Chapter 2.4: Nearest Neighbor Interpolation" << std::endl;
     std::cout << "============================================" << std::endl;
     
     // 加载图像
     std::string filename = "test.jpg";
+    spdlog::info("Attempting to load image: {}", filename);
     auto img = ImageLoader::load_from_file(filename);
     
     if (!img || img->empty()) {

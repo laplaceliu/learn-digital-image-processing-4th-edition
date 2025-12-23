@@ -6,10 +6,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 设置包含目录
-include_directories(include external)
+include_directories(include external external/spdlog/include)
 
 # 为了更好地支持尖括号包含，设置全局包含路径
 set(CMAKE_INCLUDE_PATH ${CMAKE_INCLUDE_PATH} ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/external)
+
+# 添加spdlog子目录
+add_subdirectory(external/spdlog)
 
 # 收集公共源文件
 file(GLOB COMMON_SOURCES "source/*.cpp")
@@ -23,5 +26,7 @@ foreach(CHAPTER_DIR ${CHAPTER_DIRS})
         get_filename_component(EXEC_NAME ${SOURCE_FILE} NAME_WE)
         # 创建可执行文件
         add_executable(${EXEC_NAME} ${SOURCE_FILE} ${COMMON_SOURCES})
+        # 链接spdlog库
+        target_link_libraries(${EXEC_NAME} spdlog::spdlog)
     endforeach()
 endforeach()
